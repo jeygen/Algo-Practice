@@ -2,6 +2,12 @@
 #include <stdlib.h>
 #include "mySort.h"
 
+/*
+This will check the accuracy of the implemented sort function, mySort.c.
+
+(Will not throw error if mySort.c is left empty and test array is intialized already sorted.)
+*/
+
 int main(int argc, char * argv[]) {
 
     int data[100000]; /* Array of ints to sort */  
@@ -10,7 +16,7 @@ int main(int argc, char * argv[]) {
 
     /* Test data */  
     nDataItems = 4;  
-    data[0] = 10;  
+    data[0] = 60;  
     data[1] = 20;  
     data[2] = 30;  
     data[3] = 40;  
