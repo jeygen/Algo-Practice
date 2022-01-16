@@ -40,6 +40,6 @@
 
 # to Do
 
-1. Create mySort.c, ~~mySort.h~~, sortMain.c
+1. Create mySort.c, ~~mySort.h~~, ~~sortMain.c~~
 
 
