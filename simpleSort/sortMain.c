@@ -17,7 +17,7 @@ int main(int argc, char * argv[]) {
     /* Test data */  
     nDataItems = 4;  
     data[0] = 60;  
-    data[1] = 20;  
+    data[1] = 50;  
     data[2] = 30;  
     data[3] = 40;  
 
