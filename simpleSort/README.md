@@ -71,6 +71,6 @@
 
 # to Do
 
-	1. ~~Create mySort.c~~, ~~mySort.h~~, ~~sortMain.c~~
-	2. ~~Modify sortMain.c to accept command line arguments as the array to sort~~
+	1. ~~ Create mySort.c ~~, ~~ mySort.h ~~, ~~ sortMain.c ~~
+	2. ~~ Modify sortMain.c to accept command line arguments as the array to sort ~~
 
