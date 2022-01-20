@@ -1,2 +1,2 @@
 # Algo Practice
- A repo to practice algorithms as I work through a algorithm and data structure course.
+ A repo to practice algorithms work on assignments from a algorithm and data structure course.
