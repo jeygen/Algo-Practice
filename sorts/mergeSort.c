@@ -30,10 +30,10 @@ If r > l
 // Merges two subarrays of arr[].
 // First subarray is arr[l..m]
 // Second subarray is arr[m+1..r]
-void merge(int arr[], int l, int m, int r)
+void merge(int arr[], int l, int m, int r) // Easier to think of l and r as low and high
 {
 	int i, j, k;
-	int n1 = m - l + 1;
+	int n1 = m - l + 1; 
 	int n2 = r - m;
 
 	/* create temp arrays */
@@ -80,12 +80,12 @@ void merge(int arr[], int l, int m, int r)
 
 /* l is for left index and r is right index of the
 sub-array of arr to be sorted */
-void mergeSort(int arr[], int l, int r)
+void mergeSort(int arr[], int l, int r) // Easier to think of as low and high
 {
 	if (l < r) {
-		// Same as (l+r)/2, but avoids overflow for
+		// Same as (l+r)/2, but avoids overflow for - 
 		// large l and h
-		int m = l + (r - l) / 2;
+		int m = l + (r - l) / 2; // fancy way of finding half/mid point = (low+hi)/2
 
 		// Sort first and second halves
 		mergeSort(arr, l, m);
@@ -120,3 +120,19 @@ int main()
 	printArray(arr, arr_size);
 	return 0;
 }
+
+/*
+Time Complexity: Sorting arrays on different machines. Merge Sort is a recursive algorithm and time complexity can be expressed as following recurrence relation. 
+T(n) = 2T(n/2) + θ(n)
+
+The above recurrence can be solved either using the Recurrence Tree method or the Master method. It falls in case II of Master Method and the solution of the recurrence is θ(nLogn). Time complexity of Merge Sort is  θ(nLogn) in all 3 cases (worst, average and best) as merge sort always divides the array into two halves and takes linear time to merge two halves.
+Auxiliary Space: O(n)
+Algorithmic Paradigm: Divide and Conquer
+Sorting In Place: No in a typical implementation
+Stable: Yes
+
+Useful for sorting linked lists in O(nlogn), external sorting, inversion count problem
+Slower for smaller tasks
+Requires an addtional O(n) of mem for temp arrays
+Goes through whole process even if sorted
+*/
