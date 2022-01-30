@@ -12,7 +12,13 @@ int main(int argc, char **argv)
 
 	for (i = 0; i < argc; i++) 
 		p[i] = atoi(argv[i]);
-
+	
+	if (argc == 2 || argc == 3 || argc == 4 && p[1] < 0) {
+		fprintf(stderr, "\nInput args are not acceptable\n");
+		free(p);
+		exit(0);
+	}
+		
 	if (argc == 1)
 		towers(n, from, dest);
 	else if (argc == 2) {
@@ -29,19 +35,6 @@ int main(int argc, char **argv)
 		fprintf(stderr, "\nInput args are not acceptable\n");
 
 	free(p);
-/*
-	if (argc == 1)
-		towers(n, from, dest);
-	else if (argc == 2)
-		n = atoi(argv[1]);
-	else if (argc == 4 && argv[2] != argv[3] && argv[2] < 4 && argv[2] > 0 && argv[3] < 4 && argv[3] > 0) {
-		n = atoi(argv[1]);
-		from = atoi(argv[2]);
-		dest = atoi(argv[3]);
-	}
-	else 
-		fprintf(stderr, "\nInput args are not acceptable\n");
-*/
 	
 	exit(0);
 }
