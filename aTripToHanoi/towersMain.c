@@ -13,7 +13,7 @@ int main(int argc, char **argv)
 	for (i = 0; i < argc; i++) 
 		p[i] = atoi(argv[i]);
 	
-	if (argc == 2 || argc == 3 || argc == 4 && p[1] < 0) {
+	if ((argc == 2 || argc == 3 || argc == 4) && p[1] < 0) {
 		fprintf(stderr, "\nInput args are not acceptable\n");
 		free(p);
 		exit(0);
