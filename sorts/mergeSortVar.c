@@ -2,17 +2,20 @@
 #include <stdlib.h>
 
 // Takes two sorted lists and makes one sorted list to pass by reference
+// This code is a mixture of pseudocode for "Introduction to Algorithims", my own contributions and largely the version from "https://www.geeksforgeeks.org/merge-sort/"
 
 void merge(int *arr, int l, int mid, int r) {
     int n1 = mid - l + 1;
     int n2 = r - mid;
     int *L = (int*) malloc(n1 * (sizeof(int))); // pseudo says L[1..n+1]
     int *R = (int*) malloc(n2 * (sizeof(int)));
+    if ( L == NULL || R == NULL)
+        exit(0);
     int i, j, k;
     i = j = k = 0;
 
     for (i = 0; i < n1; i++) 
-        L[i] = arr[i + i]; // could be a 1
+        L[i] = arr[l + i]; 
     for (j = 0; j < n2; j++) 
         R[j] = arr[mid + 1 + j];
 
@@ -77,10 +80,9 @@ void merge(int *A, int *B, int sizeA, int sizeB, int *C) {
 */
 
 void mergeSort(int *arr, int l, int r) { // first/left index, last/right index // Splits deck into 2 piles
-    int mid = 0;
 
     if (l < r) {
-        mid = (l + r) / 2;
+        int mid = (l + r) / 2;
         mergeSort(arr, l, mid); // All the lefts
         mergeSort(arr, mid + 1, r); // All the rights
         merge(arr, l, mid, r);
