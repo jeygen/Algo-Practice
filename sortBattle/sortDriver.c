@@ -1,4 +1,4 @@
-/* Copyright (C) 1999 Ken Clowes (kclowes@ee.ryerson.ca) */
+// Copyright (C) 1999 Ken Clowes (kclowes@ee.ryerson.ca) 
 
 #include <stdio.h>
 #include <stdlib.h>
