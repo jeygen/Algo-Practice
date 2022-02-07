@@ -1,14 +1,12 @@
 To compare insertionSort(), mergeSort() run the runSort35.sh or runSort1000.sh scripts
 and the randomly generated numbers from the text files will be input into each sorting function.
 
-Questions:
-	- myCompare() in for loops?
-	- no mySwaps in insertion?
-	- how mySwap() is being used in insertion is appropriate?
-	- myCopy() for primitives and i++?
+To Do:
 
-Bugs:
-	- insertion isnt sorting the last number
+	- After next lecture? Or after you look into how to analyze. 
+	- Perform analysis on both functions
+	- Answer questions below
+
 
 
 1. A brief summary of what you accomplished and what (if any) parts you did not

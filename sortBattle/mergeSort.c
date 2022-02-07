@@ -6,13 +6,9 @@ void mySort(int arr[], unsigned int l, unsigned int r);
 void merge(int *arr, int l, int mid, int r); 
 
 void mySort(int arr[], unsigned int l, unsigned int r) {
-//void mySort(int *arr, int l, int r) { // first/left index, last/right index // Splits deck into 2 piles
     //if (l < r) {
     if (myCompare(l, r) < 0) {
         int mid = (l + r) / 2;
-        //int mid2 = (l + r) / 2; // Do i myCopy() this?
-	//int mid;
-	//myCopy(&mid2, &mid);
         mySort(arr, l, mid); // All the lefts
         mySort(arr, mid + 1, r); // All the rights
         merge(arr, l, mid, r);
@@ -20,16 +16,10 @@ void mySort(int arr[], unsigned int l, unsigned int r) {
 }
 
 void merge(int *arr, int l, int mid, int r) {
-    int n1 = mid - l + 1; // ???
-    //int n11 = mid - l + 1;
-    //int n1;
-    //myCopy(&n11, &n1);
-    int n2 = r - mid; // ???
-    //int n22 = r - mid;
-    //int n2;
-    //myCopy(&n22, &n2);
+    int n1 = mid - l + 1; 
+    int n2 = r - mid; 
 
-    int *L = (int*) malloc(n1 * (sizeof(int))); // pseudo says L[1..n+1]
+    int *L = (int*) malloc(n1 * (sizeof(int))); 
     int *R = (int*) malloc(n2 * (sizeof(int))); 
     if ( L == NULL || R == NULL) // No metrics function for NULL
         exit(0);
@@ -37,16 +27,16 @@ void merge(int *arr, int l, int mid, int r) {
     //int R[n2];
 
     int i, j, k;
-    i = j = k = 0; // Do I need to myCopy() for primitives?
+    i = j = k = 0; 
 
     //for (i = 0; i < n1; i++)
     for(i = 0; myCompare(i, n1) < 0; i++) {
         //L[i] = arr[l + i]; 
-	myCopy(&arr[l + i], &L[i]);
+        myCopy(&arr[l + i], &L[i]);
     }
     //for (j = 0; j < n2; j++) 
     for(j = 0; myCompare(j, n2) < 0; j++) {
-	myCopy(&arr[mid + 1 + j], &R[j]);
+        myCopy(&arr[mid + 1 + j], &R[j]);
         //R[j] = arr[mid + 1 + j];
     }
 
@@ -64,7 +54,7 @@ void merge(int *arr, int l, int mid, int r) {
 		if (myCompare(L[i], R[j]) <= 0) {
 			//arr[k] = L[i];
 			myCopy(&L[i], &arr[k]);
-			i++; // should i my copy() this?
+			i++; 
 
 		}
 		else {

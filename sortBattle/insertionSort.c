@@ -2,24 +2,18 @@
 
 void mySort(int arr[], unsigned int first, unsigned int last) {
     int i, key, j, n;
-    //n = last - first;
-    int n2 = last - first + 1; // doing this to accomodate the non-simple swap but is it correct? 
-    myCopy(&n2, &n);
+    n = last - first + 1; 
 
     //for (i = 1; i < n; i++) { 
     for(i = 1; myCompare(i, n) < 0; i++) {	
         //key = arr[i]; 
 	myCopy(&arr[i], &key);
-        //j = i - 1; 
-	int j2 = i - 1;
-	myCopy(&j2, &j);
+        j = i - 1; 
         //while (j >= 0 && arr[j] > key) { 
         while (myCompare(j, 0) >= 0 && myCompare(arr[j], key) > 0) {
             //arr[j + 1] = arr[j]; // 
             myCopy(&arr[j], &arr[j + 1]);
-            //j = j - 1; // j decrements
-            int j3 = j - 1;
-	    myCopy(&j3, &j);
+            j = j - 1; // j decrements
         }
         //arr[j + 1] = key; 
         myCopy(&key, &arr[j + 1]);
