@@ -8,7 +8,7 @@
  * of no more than one hundred thousand elements is encapsulated
  * with the following "#define":
  */
-#define MAX_SIZE_N_TO_SORT 36 // Change this value to something reasonable, num of inputs i think
+#define MAX_SIZE_N_TO_SORT 1000 // Change this value to something reasonable, num of inputs i think
 
 /* prototype for "sort" function */
 void mySort(int data[], unsigned int first, unsigned int last);

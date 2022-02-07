@@ -3,7 +3,7 @@
 void mySort(int arr[], unsigned int first, unsigned int last) {
     int i, key, j, n;
     //n = last - first;
-    int n2 = last - first; // doing this to accomodate the non-simple swap but is it correct? 
+    int n2 = last - first + 1; // doing this to accomodate the non-simple swap but is it correct? 
     myCopy(&n2, &n);
 
     //for (i = 1; i < n; i++) { 
@@ -26,11 +26,12 @@ void mySort(int arr[], unsigned int first, unsigned int last) {
     }
 }
 
+// Reference insertionSort()
 /*
 void mySort(int arr[], unsigned int first, unsigned int last) {
 //void insertionSort(int arr[], int n)
     int i, key, j, n;
-    n = last - first;
+    n = last - first; // had to add + 1, for it to sort all entries
     for (i = 1; i < n; i++) { // notice i starts from 1 instead of 0
         key = arr[i]; // Assigning a key to 1st unsorted element, elements to the right are "unsorted"
         j = i - 1; // j is being assigned 1 value below each i value, the "sorted" element
