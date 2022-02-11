@@ -1,7 +1,10 @@
 #;-*-Makefile-*-
 CFLAGS = -Wall -g
 CC = gcc
-all: insertionSort mergeSort
+all: insertionSort mergeSort genNum
+
+genNum: genNum.o
+	gcc -o genNum genNum.o
 
 insertionSort: sortDriver.o metrics.o insertionSort.o
 	gcc -o insertionSort sortDriver.o metrics.o insertionSort.o
