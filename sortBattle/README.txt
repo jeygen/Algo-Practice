@@ -23,11 +23,66 @@ complete or bugs that you are aware of but have not fixed.
 	- describe insertion sorte
 	- describe merge sort
 	- describe using metrics
+	- mention lack of swaps
 
 2. Analysis (including equations for number of moves, swaps and compares as a function of n) for the best-, 
 average- and worst-case behaviors of InsertionSort and MergeSort.
 
-	- mention lack of mySwap
+	InsertionSort()
+		Best case
+			Theoretical: 
+			Experimental: 
+				Number of Comparisons:
+				Number of Swaps:
+				Number of Copies:
+				Total Number of operations:
+			Notes:
+
+		Worst case
+			Theoretical: 
+			Experimental: 
+				Number of Comparisons:
+				Number of Swaps:
+				Number of Copies:
+				Total Number of operations:
+			Notes:
+		
+		Average case
+			Theoretical: 
+			Experimental: 
+				Number of Comparisons:
+				Number of Swaps:
+				Number of Copies:
+				Total Number of operations:
+			Notes:
+
+	MergeSort()
+		Best case
+			Theoretical: 
+			Experimental: 
+				Number of Comparisons:
+				Number of Swaps:
+				Number of Copies:
+				Total Number of operations:
+			Notes:
+
+		Worst case
+			Theoretical: 
+			Experimental: 
+				Number of Comparisons:
+				Number of Swaps:
+				Number of Copies:
+				Total Number of operations:
+			Notes:
+		
+		Average case
+			Theoretical: 
+			Experimental: 
+				Number of Comparisons:
+				Number of Swaps:
+				Number of Copies:
+				Total Number of operations:
+			Notes:			
 
 # Some Additional Notes
 
