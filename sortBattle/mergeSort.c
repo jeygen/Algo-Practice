@@ -42,7 +42,6 @@ void merge(int *arr, int l, int mid, int r) {
 
     i = j = 0;
     k = l;
-    //myCopy(&l, &k); // ????
 
     /* Merge the temp arrays back into arr[l..r]*/
 	//i = 0; // Initial index of first subarray
