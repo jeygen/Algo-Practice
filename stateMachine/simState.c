@@ -15,8 +15,8 @@ typedef struct state_tag {
     int alive;
 }state_t;
 
-void noCommands(state_t *);
-void oneZeroCommands(int i, state_t *);
+void noCommands(state_t *currentState);
+void oneZeroCommands(int i, state_t *currentState);
 void print(state_t **arr, int size);
 
 // Gobal var
@@ -133,7 +133,9 @@ int main(int argc, char * argv[]) {
     currentState = A; // currently not needed
     cS = A;
 
-    // Making 1D array of pointers to print TODO figure out how to pass to function
+
+
+    // Making 1D array of pointers to print 
     state_t** arr = (state_t**)malloc(TOTAL * sizeof(state_t*));
     int i = 0;
     for (i = 0; i < TOTAL; i++) {
@@ -142,9 +144,11 @@ int main(int argc, char * argv[]) {
     *arr = A;
     *(arr+1) = B;
     *(arr+2) = C;
-    fprintf(stdout, "Name: %c, NextOne: %c, NextZero: %c\n", arr[0]->name, arr[0]->oneState->name, arr[0]->zeroState->name);
+    //fprintf(stdout, "Name: %c, NextOne: %c, NextZero: %c\n", arr[0]->name, arr[0]->oneState->name, arr[0]->zeroState->name);
+    //fprintf(stdout, "Name: %c, NextOne: %c, NextZero: %c\n", arr[1]->name, arr[1]->oneState->name, arr[1]->zeroState->name);
     //noCommands(cS);
-
+    //print(*arr, TOTAL);
+    
     // to do Check if cmd args are legal
     if (argc > 3) {
         fprintf(stderr, "Incorrect number of args\n");
@@ -159,30 +163,39 @@ int main(int argc, char * argv[]) {
     */
 
 
-    //print(*arr, TOTAL);       
+           
     
     
     // One/Zero Commands
-    if (argc == 2) {
-            if (atoi(argv[1]) == 1) 
-                oneZeroCommands(1, cS); 
-            else if (atoi(argv[1]) == 0) 
-                oneZeroCommands(0, cS);
-            else if (atoi(argv[1]) == 112)
+    while (argc == 2) {
+            if (argv[1][0] == 'p') {
                 print(arr, TOTAL);
+                break;
+            }
+            else if (atoi(argv[1]) == 1){
+                oneZeroCommands(1, cS);
+                break;
+            } 
+            else if (atoi(argv[1]) == 0) {
+                oneZeroCommands(0, cS);
+                break;
+            }
             else {
                 fprintf(stderr, "Single Command must be \"1\" or \"0\" or \"p\"\n");
                 exit(0);
             }
     }
-    noCommands(cS);
+    //noCommands(cS);
     
     // Change Command
     //if (argc == 3){} 
-    //free(cS);
+    free(cS);
     //free(A);
     //free(B);
     //free(C);
+    free(arr);
+    //free(arr[0]);
+    //free arr elements?
     exit(0);
 }
 
@@ -210,6 +223,10 @@ void oneZeroCommands(int i, state_t *currentState) {
 void print(state_t **arr, int size) {
     int i = 0;
     for(i = 0; i < size; i++) {
-        //fprintf(stdout, "Name: %c, NextOne: %c, NextZero: %c\n", *(arr+i)->name, *(arr+i)->oneState->name, *(r+i)->zeroState->name);
+        if (*(arr+i) == NULL)
+            fprintf(stderr, "Pointing to NULL");
+        fprintf(stdout, "----\nSTATE: %c\nNextZeroState: %c\nNextOneState: %c\n", arr[i][0].name, (*(arr+i))->zeroState->name, (*(arr+i))->oneState->name); 
+        //fprintf(stdout, "----\nSTATE: %c\n", arr[i][0].name);
+        //fprintf(stdout, "----\nSTATE: %c\n", (*(*(arr+i)+0)).name); // *(*(arr+i)+j pointer way for 2D array
     }
 }
