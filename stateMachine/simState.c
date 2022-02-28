@@ -18,6 +18,7 @@ typedef struct state_tag {
 void noCommands(state_t *currentState);
 void oneZeroCommands(int i, state_t *currentState);
 void print(state_t **arr, int size);
+void change(state_t *cs, int newZeroOrOne, state_t *newState);
 
 // Gobal var
 struct state_tag *cS;
@@ -26,6 +27,8 @@ struct state_tag *cS;
 
 // Driver
 int main(int argc, char * argv[]) {
+    int loop = 1; // Need to add constant running
+
     //state_t A, B, C, D, E, F, G, H;
     state_t *currentState, *A, *B, *C, *D, *E, *F, *G, *H;
     
@@ -150,7 +153,7 @@ int main(int argc, char * argv[]) {
     //print(*arr, TOTAL);
     
     // to do Check if cmd args are legal
-    if (argc > 3) {
+    if (argc > 4) {
         fprintf(stderr, "Incorrect number of args\n");
     }
     /*
@@ -162,10 +165,6 @@ int main(int argc, char * argv[]) {
     }
     */
 
-
-           
-    
-    
     // One/Zero Commands
     while (argc == 2) {
             if (argv[1][0] == 'p') {
@@ -188,6 +187,27 @@ int main(int argc, char * argv[]) {
     //noCommands(cS);
     
     // Change Command
+    state_t *temp;
+    while (argc == 4 && argv[1][0] == 'c') {
+            if (((atoi(argv[2]) == 1 || atoi(argv[2]) == 0)) && ((argv[3][0] == 'A' || argv[3][0] == 'B' || argv[3][0] == 'C'))) {
+                fprintf(stdout, "made it");
+                for (i = 0; i < TOTAL; i++) {
+                    if (arr[i][0].name == argv[3][0])
+                        temp = arr[i];
+                }
+                change(cS, atoi(argv[2]), temp);
+                break;
+            } 
+            else {
+                fprintf(stderr, "Change Command must be \"c\" then \"0\" or \"1\" then \"A-H\"\n");
+                exit(0);
+            }
+    }
+    //change(cS, 1, A); // dont worry about NULL, must point to existing state
+    print(arr, TOTAL);
+
+
+
     //if (argc == 3){} 
     free(cS);
     //free(A);
@@ -231,3 +251,15 @@ void print(state_t **arr, int size) {
         //fprintf(stdout, "----\nSTATE: %c\n", (*(*(arr+i)+0)).name); // *(*(arr+i)+j pointer way for 2D array
     }
 }
+
+// MODIFIES: cS
+// EFFECTS: Changes oneState or zeroState of cs
+void change(state_t *cs, int newZeroOrOne, state_t *newState) {
+    if (newZeroOrOne == 1) {
+        cs->oneState = newState;
+    }
+    if (newZeroOrOne == 0) {
+        cs->zeroState = newState;
+    }
+}
+
