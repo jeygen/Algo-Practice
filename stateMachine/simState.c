@@ -220,6 +220,7 @@ void oneZeroCommands(int i, state_t *currentState) {
         fprintf(stderr, "Incorrect input");
 }
 
+// EFFECTS: Prints all states and each states Zero state and One state
 void print(state_t **arr, int size) {
     int i = 0;
     for(i = 0; i < size; i++) {
