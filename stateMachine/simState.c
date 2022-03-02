@@ -147,16 +147,15 @@ int main(int argc, char * argv[]) {
     *arr = A;
     *(arr+1) = B;
     *(arr+2) = C;
-    //fprintf(stdout, "Name: %c, NextOne: %c, NextZero: %c\n", arr[0]->name, arr[0]->oneState->name, arr[0]->zeroState->name);
-    //fprintf(stdout, "Name: %c, NextOne: %c, NextZero: %c\n", arr[1]->name, arr[1]->oneState->name, arr[1]->zeroState->name);
-    //noCommands(cS);
-    //print(*arr, TOTAL);
+    
     
     // to do Check if cmd args are legal
+    /*
+    // This was for cmd line args, but program should accept args while running
     if (argc > 4) {
         fprintf(stderr, "Incorrect number of args\n");
     }
-    /*
+    
     if ((argc == 1 && (argv[1] != "0" || argv[1] != "1" || argv[1] != 'p' || argv[1] != 'g' || argv[1] != 'd'))
     || (argc == 2 && (argv[1] != 'd' || argv[2] != "0" || argv[2] != "1"))
     || (argc == 3 && (argv[1] != 'c' || argv[2] != "0" || argv[2] != "1" || argv[3] != "A" || argv[3] != "B"
@@ -165,7 +164,11 @@ int main(int argc, char * argv[]) {
     }
     */
 
+
     // One/Zero Commands
+
+    /*
+    // This was for cmd line args, but program should accept args while running
     while (argc == 2) {
             if (argv[1][0] == 'p') {
                 print(arr, TOTAL);
@@ -184,13 +187,14 @@ int main(int argc, char * argv[]) {
                 exit(0);
             }
     }
-    //noCommands(cS);
+    */
     
     // Change Command
+    /*
+    // This was for cmd line args, but program should accept args while running
     state_t *temp;
     while (argc == 4 && argv[1][0] == 'c') {
             if (((atoi(argv[2]) == 1 || atoi(argv[2]) == 0)) && ((argv[3][0] == 'A' || argv[3][0] == 'B' || argv[3][0] == 'C'))) {
-                fprintf(stdout, "made it");
                 for (i = 0; i < TOTAL; i++) {
                     if (arr[i][0].name == argv[3][0])
                         temp = arr[i];
@@ -205,7 +209,75 @@ int main(int argc, char * argv[]) {
     }
     //change(cS, 1, A); // dont worry about NULL, must point to existing state
     print(arr, TOTAL);
+    */
 
+    /*
+    char inArr[3];
+    fprintf(stdout, "How many args will you be inputing? (0 to 3) (O exits program)\n");
+
+    int argCount = -1;
+    for (;;) { 
+        fprintf(stdout, "Input num between 0 and 3:\n");
+        scanf("%d", &argCount);
+        if (argCount > -1 && argCount < 4)
+            break;
+        scanf("%c", &argCount);
+    }
+
+    fprintf(stdout, "Please input args.\n");
+    for (i = 0; i < argCount; i++) {
+        scanf("%c", inArr[i]);
+    }
+    */
+
+    noCommands(cS);
+
+    LOOP: 
+
+    fprintf(stdout, "********************\n");
+    fprintf(stdout, "Please input args.\n");
+    char inChar; // = getchar();
+    scanf(" %c", &inChar);
+    
+    int temp2;
+    state_t *tempState;
+    //int inInt = -1;
+    //scanf("&d", &inInt);
+
+    // Args for oneZeroCommands
+    if (inChar == '0')
+        oneZeroCommands(0, cS);
+    if (inChar == '1')
+        oneZeroCommands(1, cS);
+
+    // Args for print
+    if (inChar == 'p')
+        print(arr, TOTAL);
+
+    // Args for garbage    
+    if (inChar == 'g')
+        print(arr, TOTAL);
+
+    // Args for change
+    if (inChar == 'c') {
+        fprintf(stdout, "Please input 0 or 1 to choose which state to modify.\n");
+        scanf(" %d", &temp2);
+        fprintf(stdout, "Please which state to modify. <A-H>\n");
+        scanf(" %c", &inChar);
+        for (i = 0; i < TOTAL; i++) {
+                    if (arr[i][0].name == inChar)
+                        tempState = arr[i];
+                }
+        change(cS, temp2, tempState);
+    }
+
+    // Args for quit
+    if (inChar == 'q') {
+        fprintf(stdout, "Goodbye");    
+        exit(0);
+    }    
+    
+    goto LOOP;
 
 
     //if (argc == 3){} 
@@ -216,12 +288,13 @@ int main(int argc, char * argv[]) {
     free(arr);
     //free(arr[0]);
     //free arr elements?
+
     exit(0);
 }
 
 // EFFECTS: stdout greets user with current state
 void noCommands(state_t *currentState) { 
-    fprintf(stdout, "The current state is: %c\n", currentState->name);
+    fprintf(stdout, "\nThe current state is: %c\n", currentState->name);
 }
 
 // MODIFIES: currentState  
@@ -262,4 +335,9 @@ void change(state_t *cs, int newZeroOrOne, state_t *newState) {
         cs->zeroState = newState;
     }
 }
+
+// EFFECTS: Print all states that are reachable and unreachable from current state
+void garbage(state_t **arr, state_t *cs) {
+}
+
 
