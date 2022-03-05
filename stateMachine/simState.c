@@ -24,6 +24,7 @@ void garbage(state_t **arr, state_t *cs);
 
 int garbageBuddy(state_t *currentState);
 void garbageAdd(char c);
+void delete(int d, char c, state_t **arr, int size);
 
 
 // Gobal var
@@ -31,7 +32,9 @@ struct state_tag *cS;
 //extern struct state_tag *A, *B, *C, *D, *E, *F, *G, *H;
 //char cS;
 char staticControlArr[TOTAL2];
+char staticGarbageList[TOTAL];
 int staticCount;
+//state_t** arr;
 
 // Driver
 int main(int argc, char * argv[]) {
@@ -41,6 +44,9 @@ int main(int argc, char * argv[]) {
 
     for (i = 0; i < TOTAL2; i++) {
         staticControlArr[i] = 'z';
+    }
+    for (i = 0; i < TOTAL; i++) {
+        staticGarbageList[i] = 'z';
     }
     
 
@@ -155,6 +161,7 @@ int main(int argc, char * argv[]) {
 
     // Making 1D array of pointers to print 
     state_t** arr = (state_t**)malloc(TOTAL * sizeof(state_t*));
+    //arr = (state_t**)malloc(TOTAL * sizeof(state_t*));
 
     for (i = 0; i < TOTAL; i++) {
         arr[i] = (state_t*)malloc(TOTAL * sizeof(state_t));
@@ -255,6 +262,7 @@ int main(int argc, char * argv[]) {
     scanf(" %c", &inChar);
     
     int temp2;
+    char tempChar;
     state_t *tempState;
     //int inInt = -1;
     //scanf("&d", &inInt);
@@ -294,6 +302,13 @@ int main(int argc, char * argv[]) {
         fprintf(stdout, "Goodbye");    
         exit(0);
     }    
+
+    if (inChar == 'd') {
+        delete(0, 'z', arr, TOTAL);
+        fprintf(stdout, "Please input a state name to delete <A-H>\n");
+        scanf(" %c", &tempChar);
+        delete(1, tempChar, arr, TOTAL);
+    }
     
     goto LOOP;
 
@@ -339,6 +354,8 @@ void print(state_t **arr, int size) {
     for(i = 0; i < size; i++) {
         if (*(arr+i) == NULL)
             fprintf(stderr, "Pointing to NULL");
+        if ((*(arr+i))->name == 'z' || (*(arr+i))->name == ' ')
+            continue;
         fprintf(stdout, "----\nSTATE: %c\nNextZeroState: %c\nNextOneState: %c\n", arr[i][0].name, (*(arr+i))->zeroState->name, (*(arr+i))->oneState->name); 
         //fprintf(stdout, "----\nSTATE: %c\n", arr[i][0].name);
         //fprintf(stdout, "----\nSTATE: %c\n", (*(*(arr+i)+0)).name); // *(*(arr+i)+j pointer way for 2D array
@@ -480,8 +497,10 @@ void garbage(state_t **arr, state_t *cs) {
         }
     }
     for(i = 0; i < TOTAL; i++) {
-        if (controlArr[i] != 'z')
+        if (controlArr[i] != 'z') {// if in local control array then print
             fprintf(stdout, "Garbage: %c\n", controlArr[i]);
+            staticGarbageList[i] = controlArr[i];
+        }
         else
             counter2++;
     }
@@ -567,6 +586,49 @@ void garbageAdd(char c) {
     staticControlArr[staticCount] = c;
     staticCount++;
 }
+
+void delete(int d,char c, state_t **arr, int size) {
+    int i = 0;
+    int j = 0;
+    int counter = 0;
+
+    if (d == 0) {
+        for (i = 0; i < size; i++) {
+            for (j = 0; j < size; j++) {
+                if((*(arr+i))->zeroState->name == staticGarbageList[j]) {
+                    (*(arr+i))->zeroState->name = ' ';
+                    counter++;
+                }
+            }
+        }
+    }
+
+    if (counter == 0) {
+        fprintf(stdout, "\nNo states deleted.\n");
+    }
+
+    if (counter != 0) {
+        fprintf(stdout, "List of deleted states: ");
+        for (i = 0; i < TOTAL; i++) {
+            if (staticGarbageList[i] != 'z')
+                fprintf(stdout, " %c ", staticGarbageList[i]);
+        }
+    }
+    fprintf(stdout, "\n");
+
+
+    if (d == 1) {
+        for (i = 0; i < TOTAL; i++) {
+            if (staticGarbageList[i] == c)
+                fprintf(stdout, "Deleted");
+            else {   
+                fprintf(stdout, "Not deleted");
+                break;
+            }
+        }
+    }
+}
+       
 
 
 
