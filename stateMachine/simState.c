@@ -32,14 +32,16 @@ struct state_tag *cS;
 //extern struct state_tag *A, *B, *C, *D, *E, *F, *G, *H;
 //char cS;
 char staticControlArr[TOTAL2];
-char staticGarbageList[TOTAL];
+char staticGarbageList[TOTAL]; // for deleted states
 int staticCount;
 //state_t** arr;
 
 // Driver
 int main(int argc, char * argv[]) {
     int loop = 1; // Need to add constant running
-
+    size_t bufferSize = 32;
+    char *buffer = (char*)malloc(bufferSize * sizeof(char));
+    size_t chars;
     int i = 0;
 
     for (i = 0; i < TOTAL2; i++) {
@@ -65,9 +67,9 @@ int main(int argc, char * argv[]) {
 
     A->name = 'A';
     A->zeroState = (state_t*)malloc(sizeof(state_t));
-    A->zeroState = B;
+    A->zeroState = A;
     A->oneState = (state_t*)malloc(sizeof(state_t));
-    A->oneState = C;
+    A->oneState = A;
     A->alive = 1;
 
     B->name = 'B';
@@ -252,11 +254,13 @@ int main(int argc, char * argv[]) {
     }
     */
 
+    fprintf(stdout, "\n***\nWelcome to state machine\n***\nInput options (case sensitive):\n");
     noCommands(cS);
+    garbageBuddy(cS); // Need to run this now to make sure gobal values are fully initialized, actually this didnt fix it, can del
 
     LOOP: 
 
-    fprintf(stdout, "********************\n");
+    fprintf(stdout, "\n***\n");
     fprintf(stdout, "Please input args.\n");
     char inChar; // = getchar();
     scanf(" %c", &inChar);
@@ -266,6 +270,10 @@ int main(int argc, char * argv[]) {
     state_t *tempState;
     //int inInt = -1;
     //scanf("&d", &inInt);
+
+    // Args to replay greeting and show current state
+    if (inChar == 'r')
+        noCommands(cS);
 
     // Args for oneZeroCommands
     if (inChar == '0')
@@ -286,9 +294,9 @@ int main(int argc, char * argv[]) {
 
     // Args for change
     if (inChar == 'c') {
-        fprintf(stdout, "Please input 0 or 1 to choose which state to modify.\n");
+        //fprintf(stdout, "Please input 0 or 1 to choose which state to modify.\n");
         scanf(" %d", &temp2);
-        fprintf(stdout, "Please which state to modify. <A-H>\n");
+        //fprintf(stdout, "Please which state to modify. <A-H>\n");
         scanf(" %c", &inChar);
         for (i = 0; i < TOTAL; i++) {
                     if (arr[i][0].name == inChar)
@@ -304,10 +312,16 @@ int main(int argc, char * argv[]) {
     }    
 
     if (inChar == 'd') {
-        delete(0, 'z', arr, TOTAL);
-        fprintf(stdout, "Please input a state name to delete <A-H>\n");
-        scanf(" %c", &tempChar);
-        delete(1, tempChar, arr, TOTAL);
+        fprintf(stdout, "Input 0 to delete all garbage, otherwise input <A-H> to check status of specific state:\n");
+        scanf(" %c", &inChar);
+        if (inChar == '0')
+            delete(0, 'z', arr, TOTAL);
+        else 
+           delete(1, inChar, arr, TOTAL);
+        //fprintf(stdout, "Please input a state name to delete <A-H>\n");
+        //scanf(" %c", &tempChar);
+            //inChar = getchar();
+        //delete(1, buffer, arr, TOTAL);
     }
     
     goto LOOP;
@@ -327,7 +341,13 @@ int main(int argc, char * argv[]) {
 
 // EFFECTS: stdout greets user with current state
 void noCommands(state_t *currentState) { 
-    fprintf(stdout, "\nThe current state is: %c\n", currentState->name);
+    fprintf(stdout, "---To change what the current state's zero state or one state value is: c <0 or 1> <A-H>\n");
+    fprintf(stdout, "---To change current state to it's one or zero state: <0 or 1>\n");
+    fprintf(stdout, "---To identify unreachable states: g\n");
+    fprintf(stdout, "---To delete garbage or specified states: d or d <A-H>\n");
+    fprintf(stdout, "---To quit: q\n");
+    fprintf(stdout, "---To replay this message: r\n");
+    fprintf(stdout, "***\nThe current state is: %c\n***\n", currentState->name);
 }
 
 // MODIFIES: currentState  
@@ -375,8 +395,6 @@ void change(state_t *cs, int newZeroOrOne, state_t *newState) {
 
 // EFFECTS: Print all states that are reachable and unreachable from current state
 void garbage(state_t **arr, state_t *cs) {
-    char tempArr[TOTAL];
-    char tempArrZero[TOTAL];
     char controlArr[] = {'A', 'B', 'C'}; //, 'D', 'E', 'F', 'G'};
     int size = TOTAL;
     int i = 0;
@@ -384,100 +402,13 @@ void garbage(state_t **arr, state_t *cs) {
     int k = 0;
     int counter = 0;
     int counter2 = 0;
-    
-    // Temp arrays for all one states, zero states from current state, should have probably made a recursive function to do this
-    tempArr[0] = cs->oneState->name;
-    tempArr[1] = cs->oneState->oneState->name;
-    tempArr[2] = cs->oneState->oneState->oneState->name;
-    /*
-    tempArr[3] = cs->oneState->oneState->oneState->oneState->name;
-    tempArr[4] = cs->oneState->oneState->oneState->oneState->oneState->name;
-    tempArr[5] = cs->oneState->oneState->oneState->oneState->oneState->oneState->name;
-    tempArr[6] = cs->oneState->oneState->oneState->oneState->oneState->oneState->oneState->name;
-    tempArr[7] = cs->oneState->oneState->oneState->oneState->oneState->oneState->oneState->oneState->name;
-    */
-    tempArrZero[0] = cs->zeroState->name;
-    tempArrZero[1] = cs->zeroState->zeroState->name;
-    tempArrZero[2] = cs->zeroState->zeroState->zeroState->name;
-    /*
-    tempArrZero[3] = cs->zeroState->zeroState->zeroState->zeroState->name;
-    tempArrZero[4] = cs->zeroState->zeroState->zeroState->zeroState->zeroState->name;
-    tempArrZero[5] = cs->zeroState->zeroState->zeroState->zeroState->zeroState->zeroState->name;
-    tempArrZero[6] = cs->zeroState->zeroState->zeroState->zeroState->zeroState->zeroState->zeroState->name;
-    tempArrZero[7] = cs->zeroState->zeroState->zeroState->zeroState->zeroState->zeroState->zeroState->zeroState->name;
-    */
-
-    // Used a common method for removing duplicates from arrays
-    for(i = 0; i < size; i++){
-        for(j = i+1; j < size; j++){
-            if(tempArr[i] == tempArr[j]){
-                for(k = j; k < size; k++){
-                    tempArr[k] = tempArr[k+1];
-            }
-        j--;
-        size--;
-            }
-        }
-    }
-    size = TOTAL;
-
-    for(i = 0; i < size; i++){
-        for(j = i+1; j < size; j++){
-            if(tempArrZero[i] == tempArrZero[j]){
-                for(k = j; k < size; k++){
-                    tempArrZero[k] = tempArrZero[k+1];
-            }
-        j--;
-        size--;
-            }
-        }
-    }
-    size = TOTAL;
-
-    // Prints out reachable and non-reachable or 'garbage' states from current state
-    // bugs printing out multiples
-    /* MOSTLY WORKS
-    fprintf(stdout, "\n");
-    fprintf(stdout, "The reachable states from current state (%c)'s one state are:", cs->name);
-    for(i = 0; i < TOTAL; i++) {
-        fprintf(stdout, " %c ", tempArr[i]);
-    }
-    fprintf(stdout, "\n");
-
-    fprintf(stdout, "The reachable states from current state (%c)'s zero state are:", cs->name);
-    for(i = 0; i < TOTAL; i++) {
-        fprintf(stdout, " %c ", tempArrZero[i]);
-    }
-    fprintf(stdout, "\n");
-
-    for(i = 0; i < TOTAL; i++) {
-        for(j = 0; j < TOTAL; j++) {
-            if (controlArr[i] == tempArr[j] || controlArr[i] == tempArrZero[j]) // replacing the control arrays elements with dummy variable 'z' if they exist in a temp state array
-                controlArr[i] = 'z';
-        }
-    }
-
-    fprintf(stdout, "Garbage from (%c)'s perspective:", cs->name);
-    for(i = 0; i < TOTAL; i++) {
-        if (controlArr[i] != 'z') { // printing the elements in the control array that haven't been changed to dummy variable 'c'
-            fprintf(stdout, " %c ", controlArr[i]);
-            counter = 1; // if any dummy elements counter turns on which indicates that line 406 'no garbage' will not run
-        }
-       
-    }
-    if (counter == 0) {
-        fprintf(stdout, " no garbage\n");
-    }
-    fprintf(stdout, "\n");
-    */
-
-    // experimental section
+        // experimental section
     garbageBuddy(cs);
     for(i = 0; i < TOTAL2; i++) {
         
         //fprintf(stdout, " %c ", staticControlArr[i]);
     }
-    fprintf(stdout, "Reachable states from (%c)'s perspective:", cs->name);
+    fprintf(stdout, "\nReachable states from (%c)'s perspective:", cs->name);
     for(i = 0; i < TOTAL2; i++) {
         if (staticControlArr[i] != 'z') { // && (cs->oneState->name == cs->name || cs->zeroState->name == cs->name)) { 
             fprintf(stdout, " %c ", staticControlArr[i]);
@@ -496,16 +427,18 @@ void garbage(state_t **arr, state_t *cs) {
                 //counter2++;
         }
     }
+    if (controlArr[i] != 'z') 
+            fprintf(stdout, "Garbage:");
     for(i = 0; i < TOTAL; i++) {
-        if (controlArr[i] != 'z') {// if in local control array then print
-            fprintf(stdout, "Garbage: %c\n", controlArr[i]);
+        if (controlArr[i] != 'z' && (*(arr+i))->name != ' ') {// if in local control array and not nameless (' ') in passed pointer array
+            fprintf(stdout, " %c ", controlArr[i]);
             staticGarbageList[i] = controlArr[i];
         }
         else
             counter2++;
     }
     if (counter2 == TOTAL)
-        fprintf(stdout, "No garbage\n");
+        fprintf(stdout, " No garbage\n");
 
     /*
     if (counter2++ > 1) {
@@ -587,27 +520,32 @@ void garbageAdd(char c) {
     staticCount++;
 }
 
-void delete(int d,char c, state_t **arr, int size) {
+void delete(int d, char c, state_t **arr, int size) {
     int i = 0;
     int j = 0;
     int counter = 0;
 
-    if (d == 0) {
+    if (d == 0) { // to delete all garbage states, if the state is on the staticGarbageList it is replaced with ' ', if any states removed counter becomes non-zero 
         for (i = 0; i < size; i++) {
             for (j = 0; j < size; j++) {
                 if((*(arr+i))->zeroState->name == staticGarbageList[j]) {
                     (*(arr+i))->zeroState->name = ' ';
                     counter++;
                 }
+                if((*(arr+i))->oneState->name == staticGarbageList[j]) {
+                    (*(arr+i))->oneState->name = ' ';
+                    counter++;
+                }
             }
         }
     }
 
-    if (counter == 0) {
+    if (counter == 0) { // checks counter to see if any states deleted
         fprintf(stdout, "\nNo states deleted.\n");
     }
 
-    if (counter != 0) {
+    /*
+    if (counter != 0) { // Lists deleted states after deleting them
         fprintf(stdout, "List of deleted states: ");
         for (i = 0; i < TOTAL; i++) {
             if (staticGarbageList[i] != 'z')
@@ -615,17 +553,35 @@ void delete(int d,char c, state_t **arr, int size) {
         }
     }
     fprintf(stdout, "\n");
+    */
+    j = 0;
+    for (i = 0; i < TOTAL; i++) { // is staticGarbageList is empty (all 'z') then skip printing list of deleted states
+        if (staticGarbageList[i] == 'z')
+            j++;
+        if (j == TOTAL-1)
+            goto SKIP;
+    }
 
+    fprintf(stdout, "Current list of deleted states: ");
+    for (i = 0; i < TOTAL; i++) {
+        if (staticGarbageList[i] != 'z')
+            fprintf(stdout, " %c ", staticGarbageList[i]);
+    }
+    fprintf(stdout, "\n");
 
-    if (d == 1) {
+    SKIP:
+
+    counter = 0;
+    if (d == 1) { 
+
         for (i = 0; i < TOTAL; i++) {
-            if (staticGarbageList[i] == c)
-                fprintf(stdout, "Deleted");
-            else {   
-                fprintf(stdout, "Not deleted");
-                break;
+            if (staticGarbageList[i] == c) {
+                fprintf(stdout, "%c is deleted\n", c);
+                counter++;
             }
         }
+        if (counter == 0) 
+            fprintf(stdout, "%c is not deleted\n", c);
     }
 }
        
