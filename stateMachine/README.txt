@@ -35,3 +35,8 @@ Notes on the code:
             - '0' to delete all garbage
             - '<A-H>' to see status of desired state
         - 'g' to show garbage contents 
+        
+Bugs:
+
+    - Line 245: the c command only refutes some bad input, it is possible to assign a next state as a letter not A-H, not sure why
+    
