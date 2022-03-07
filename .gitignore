@@ -54,3 +54,4 @@ dkms.conf
 #
 pracPit.c
 *.json
+*.DS_store
