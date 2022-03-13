@@ -20,34 +20,55 @@ Implement stack funcitions push(), pop(), isEmpty() in intStack.c
 int main(int argc, char * argv[])
 {
 	int ch;
-	int startTag;
-	int startTagcloser;
+	int startTag; // for char after '<'
+	int startTagcloser; // for '>' after start tag
+	int endTag; // for char after '</'
+	int endTagcloser;
 
 	while ((ch = getchar()) != EOF) {
-		if (!(isalpha(ch) || ch == '>' || ch == '<' || ch == '/'))
+		if (!(isalpha(ch) || ch == '>' || ch == '<' || ch == '/')) 
 			continue;
 
-			//Checking startTag section
-			//Working so far
-			if (ch == '<') {
-				startTag = getchar();
-			        startTagcloser = getchar();
-				if (islower(startTag) && startTagcloser == '>')
-					push(startTag);
-				else { 
-					fprintf(stdout, "NOT valid\n");
-					continue;
+		//Checking to see if <a></a> format is followed.
+		//Only works if single char and lowercase (ask to make sure this is desired)
+		//Printing valid twice, its validating per <>, make so tracks each <> and says invalid/valid only once
+		if (ch == '<') {
+
+			startTag = getchar();
+			
+
+			if (startTag == '/') {
+				endTag = getchar();
+				endTagcloser = getchar();
+
+				if (endTagcloser == '>') {
+					if (pop() == endTag) {
+						fprintf(stdout, "Valid\n");
+						continue;
+					}
+					else {
+						fprintf(stdout, "NOT Valid\n");
+						continue;
+					}
 				}
+				else  
+					continue;
 			}
 
-/*
-			if (ch == '<' && getchar() == '/' && getchar() == startTag)
-				pop();
-		if (isEmpty() == 0)
-			fprintf(stdout, "Valid");
-		else
-			fprintf(stdout, "Invalid");
- */   
-	}	
+			startTagcloser = getchar();
+
+			if (startTagcloser != '>') {
+				fprintf(stdout, "NOT Valid\n");
+				continue;
+			}
+
+			if (islower(startTag) && startTagcloser == '>')
+				push(startTag);
+			else { 
+				continue;
+			}
+		}
+	}
+
   exit(0);
 }

@@ -44,7 +44,7 @@ void push(int thing2push)
 
   top++;
   if (top > 100) {
-    fprintf(stderr, "Stack overflow");
+    fprintf(stderr, "Stack overflow\n");
   }
   stack[top] = thing2push; // increases top by one and adds new value to stack
 }
@@ -56,10 +56,10 @@ void push(int thing2push)
  */
 int isEmpty()
 {
-  if (top == 0)
-    return 0; // it top is at 0 then return 0 for true 
+  if (top < 0)
+    return 1; // it top is at 0 then return 0 for true 
   else
-    return 1; // else returns 1 for false  
+    return 0; // else returns 1 for false  
 }
 
 /**
@@ -72,7 +72,7 @@ int isEmpty()
 int pop()
 {
   if (isEmpty() == 1) {
-    fprintf(stderr, "Stack underflow");
+    fprintf(stderr, "Stack underflow\n");
   }
   else  
     top--; // top decrements
