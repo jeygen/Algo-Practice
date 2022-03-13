@@ -31,7 +31,7 @@ int main(int argc, char * argv[])
 
 		//Checking to see if <a></a> format is followed.
 		//Only works if single char and lowercase (ask to make sure this is desired)
-		//Printing valid twice, its validating per <>, make so tracks each <> and says invalid/valid only once
+		//
 		if (ch == '<') {
 
 			startTag = getchar();
@@ -44,11 +44,13 @@ int main(int argc, char * argv[])
 				if (endTagcloser == '>') {
 					if (pop() == endTag) {
 						fprintf(stdout, "Valid\n");
-						continue;
+						exit(0);
+						//continue;
 					}
 					else {
 						fprintf(stdout, "NOT Valid\n");
-						continue;
+						exit(0);
+						//continue;
 					}
 				}
 				else  
@@ -59,7 +61,8 @@ int main(int argc, char * argv[])
 
 			if (startTagcloser != '>') {
 				fprintf(stdout, "NOT Valid\n");
-				continue;
+				exit(0);
+				//continue;
 			}
 
 			if (islower(startTag) && startTagcloser == '>')
