@@ -8,6 +8,8 @@
  *  the Stack at any given time.
  */
 
+#include <stdio.h>
+
 // Implementation hints:
 //   The 3 functions--push, pop and isEmpty--share information
 //   about the array used to implement the stack and the index
@@ -26,8 +28,8 @@
 //
 //  RECOMMENDATION:
 //   Uncomment the following 2 lines and use these static globals!
-//static int top = 0;
-//static int stack[100];
+static int top = 0; // indicates where the top of the stack is
+static int stack[100];
 
 
 /**
@@ -39,7 +41,12 @@
 
 int pop()
 {
-  return 0;  //A dummy return statement
+  if (isEmpty() == 1) {
+    fprintf(stderr, "Stack underflow");
+  }
+  else  
+    top--; // top decrements
+    return stack[top + 1]; // returns top of stack (before decrement)
 }
 
 /**
@@ -50,6 +57,12 @@ int pop()
  */
 void push(int thing2push)
 {
+
+  top++;
+  if (top > 100) {
+    fprintf(stderr, "Stack overflow");
+  }
+  stack[top] = thing2push; // increases top by one and adds new value to stack
 }
 
 /**
@@ -59,5 +72,8 @@ void push(int thing2push)
  */
 int isEmpty()
 {
-  return 0;  //A dummy return statement
+  if (top == 0)
+    return 0; // it top is at 0 then return 0 for true 
+  else
+    return 1; // else returns 1 for false  
 }
