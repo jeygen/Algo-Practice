@@ -32,22 +32,6 @@ static int top = 0; // indicates where the top of the stack is
 static int stack[100];
 
 
-/**
- * pop() removes the top integer on the stack and returns it.
- *
- * If pop() is attempted on an empty stack, an error message
- * is printed to stderr and the value -1 (minus one) is returned.
- */
-
-int pop()
-{
-  if (isEmpty() == 1) {
-    fprintf(stderr, "Stack underflow");
-  }
-  else  
-    top--; // top decrements
-    return stack[top + 1]; // returns top of stack (before decrement)
-}
 
 /**
  *  push(thing2push) adds the "thing2push" to the top of the stack.
@@ -76,4 +60,21 @@ int isEmpty()
     return 0; // it top is at 0 then return 0 for true 
   else
     return 1; // else returns 1 for false  
+}
+
+/**
+ * pop() removes the top integer on the stack and returns it.
+ *
+ * If pop() is attempted on an empty stack, an error message
+ * is printed to stderr and the value -1 (minus one) is returned.
+ */
+
+int pop()
+{
+  if (isEmpty() == 1) {
+    fprintf(stderr, "Stack underflow");
+  }
+  else  
+    top--; // top decrements
+    return stack[top + 1]; // returns top of stack (before decrement)
 }

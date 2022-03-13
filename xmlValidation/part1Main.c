@@ -3,6 +3,7 @@
 #include <ctype.h>
 extern int pop();
 extern void push(int);
+extern int isEmpty(); // I added this, check if thats allowed
 
 /*
 Part 1
@@ -18,15 +19,35 @@ Implement stack funcitions push(), pop(), isEmpty() in intStack.c
 
 int main(int argc, char * argv[])
 {
-  int ch;
-  while ((ch = getchar()) != EOF) {
-    if (!(isalpha(ch) || ch == '>' || ch == '<' || ch == '/'))
-      continue;
-   
+	int ch;
+	int startTag;
+	int startTagcloser;
 
-    
-    
-    
-  }
+	while ((ch = getchar()) != EOF) {
+		if (!(isalpha(ch) || ch == '>' || ch == '<' || ch == '/'))
+			continue;
+
+			//Checking startTag section
+			//Working so far
+			if (ch == '<') {
+				startTag = getchar();
+			        startTagcloser = getchar();
+				if (islower(startTag) && startTagcloser == '>')
+					push(startTag);
+				else { 
+					fprintf(stdout, "NOT valid\n");
+					continue;
+				}
+			}
+
+/*
+			if (ch == '<' && getchar() == '/' && getchar() == startTag)
+				pop();
+		if (isEmpty() == 0)
+			fprintf(stdout, "Valid");
+		else
+			fprintf(stdout, "Invalid");
+ */   
+	}	
   exit(0);
 }
