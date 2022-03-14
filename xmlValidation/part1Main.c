@@ -49,7 +49,7 @@ int main(int argc, char * argv[])
 					}
 					else {
 						fprintf(stdout, "NOT Valid\n");
-						exit(0);
+						exit(1);
 						//continue;
 					}
 				}
@@ -61,7 +61,7 @@ int main(int argc, char * argv[])
 
 			if (startTagcloser != '>') {
 				fprintf(stdout, "NOT Valid\n");
-				exit(0);
+				exit(1);
 				//continue;
 			}
 
