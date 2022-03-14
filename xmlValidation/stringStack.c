@@ -1,11 +1,16 @@
 /**
  *  The functions in this module implement a Stack data structure
- *  of char pointers (aka "strings").
- *  
+ *  of integers.  (Note that chars are also integers so this
+ *  integer Stack can be used for chars as well.)
+ *
  *  NOTE: the stack is implemented as a fixed size array (size = 100).
- *  Consequently, no more than 100 strings can be pushed onto
+ *  Consequently, no more than 100 integers can be pushed onto
  *  the Stack at any given time.
  */
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 // Implementation hints:
 //   The 3 functions--push, pop and isEmpty--share information
@@ -25,20 +30,10 @@
 //
 //  RECOMMENDATION:
 //   Uncomment the following 2 lines and use these static globals!
-//static int top = 0;
-//static char * stack[100];
+static int top = 0; // indicates where the top of the stack is
+static char* stack[100];
+//static const char** arr = (char**) malloc(100 * sizeof(char*));
 
-/**
- * pop() removes the top string on the stack and returns it.
- *
- * If pop() is attempted on an empty stack, an error message
- * is printed to stderr and the value NULL ((char *) 0) is returned.
- */
-
-char *  pop()
-{
-  return (char *) 0;  //A dummy return statement
-}
 
 /**
  *  push(thing2push) adds the "thing2push" to the top of the stack.
@@ -46,8 +41,23 @@ char *  pop()
  *  If there is no more space available on the Stack, an error
  *  message is printed to stderr.
  */
-void push(char * thing2push)
+void push(char *thing2push)
 {
+
+  top++;
+  if (top > 100) {
+    fprintf(stderr, "Stack overflow\n");
+  }
+  if (strlen(thing2push) > 100) {
+	fprintf(stderr, "String too long to push.");
+  } 
+  //char temp[100];
+  //strcpy(temp, thing2push); // maybe can just use thing2push directly to stack
+  stack[top] = thing2push; // increases top by one and adds new value to stack
+ int i =  0;
+ for (i =0; i < strlen(thing2push); i++) // this isn't need, can just printf string 
+	fprintf(stdout, "%s", thing2push); // both of these work
+	fprintf(stdout, "%s", stack[top]); // prob need to mem allocate?
 }
 
 /**
@@ -57,5 +67,26 @@ void push(char * thing2push)
  */
 int isEmpty()
 {
-  return 0;  //A dummy return statement
+  if (top < 0)
+    return 1; // it top is at 0 then return 0 for true 
+  else
+    return 0; // else returns 1 for false  
+}
+
+/**
+ * pop() removes the top integer on the stack and returns it.
+ *
+ * If pop() is attempted on an empty stack, an error message
+ * is printed to stderr and the value -1 (minus one) is returned.
+ */
+
+int pop()
+{
+  if (isEmpty() == 1) {
+    fprintf(stderr, "Stack underflow\n");
+  }
+  else  
+    top--; // top decrements
+  //return stack[top + 1][0]; // returns top of stack (before decrement)
+  return 1; // this is dummy
 }
