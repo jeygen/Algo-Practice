@@ -24,7 +24,7 @@
 //   An alternative in C is a "static global".
 //   If a global variable is qualified as "static", it is global only
 //   within the source code file where it is declared.
-//   In parituclar, it cannot conflict with any other global variable.
+//   In particular, it cannot conflict with any other global variable.
 //
 //  RECOMMENDATION:
 //   Uncomment the following 2 lines and use these static globals!

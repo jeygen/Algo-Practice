@@ -54,10 +54,11 @@ void push(char *thing2push)
   //char temp[100];
   //strcpy(temp, thing2push); // maybe can just use thing2push directly to stack
   stack[top] = thing2push; // increases top by one and adds new value to stack
- int i =  0;
- for (i =0; i < strlen(thing2push); i++) // this isn't need, can just printf string 
-	fprintf(stdout, "%s", thing2push); // both of these work
+
+  //
+
 	fprintf(stdout, "%s", stack[top]); // prob need to mem allocate?
+  //
 }
 
 /**
@@ -80,6 +81,7 @@ int isEmpty()
  * is printed to stderr and the value -1 (minus one) is returned.
  */
 
+/*
 int pop()
 {
   if (isEmpty() == 1) {
@@ -89,4 +91,16 @@ int pop()
     top--; // top decrements
   //return stack[top + 1][0]; // returns top of stack (before decrement)
   return 1; // this is dummy
+}
+*/
+
+char* pop()
+{
+  if (isEmpty() == 1) {
+    fprintf(stderr, "Stack underflow\n");
+  }
+  else  
+    top--; // top decrements
+  return stack[top + 1]; // returns top of stack (before decrement)
+  //return 1; // this is dummy
 }
