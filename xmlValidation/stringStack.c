@@ -30,8 +30,8 @@
 //
 //  RECOMMENDATION:
 //   Uncomment the following 2 lines and use these static globals!
- int top = 0; // indicates where the top of the stack is
- char* stack[100];
+static int top = 0; // indicates where the top of the stack is
+static char* stack[100];
 //static const char** arr = (char**) malloc(100 * sizeof(char*));
 
 
@@ -44,7 +44,7 @@
 void push(char *thing2push)
 {
 
-  top++;
+  top++;// good top, but experimenting
   if (top > 100) {
     fprintf(stderr, "Stack overflow\n");
   }
@@ -54,7 +54,7 @@ void push(char *thing2push)
   //char temp[100];
   //strcpy(temp, thing2push); // maybe can just use thing2push directly to stack
   stack[top] = thing2push; // increases top by one and adds new value to stack
-
+  //top++;
   //
 
 	fprintf(stdout, "from inside push %s\n", stack[top]); // prob need to mem allocate?
@@ -106,8 +106,18 @@ char* pop()
   //return topStack;
   //return stack[top + 1]; // returns top of stack (before decrement) // this one is normal
   //top++;
-  fprintf(stdout, "this is from inside pop: %s", stack[top + 1]);
+  fprintf(stdout, "this is from inside pop: %s\n", stack[top + 1]);
   return stack[top + 1]; // returns top of stack (before decrement)
   //return 1; // this is dummy
 }
+
+void allocate() {
+  *stack = malloc(sizeof(char*)*10);
+}
+
+void freeStack() {
+  free(stack);
+}
+
+
 
