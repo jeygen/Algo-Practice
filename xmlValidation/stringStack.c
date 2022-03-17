@@ -30,8 +30,8 @@
 //
 //  RECOMMENDATION:
 //   Uncomment the following 2 lines and use these static globals!
-static int top = 0; // indicates where the top of the stack is
-static char* stack[100];
+ int top = 0; // indicates where the top of the stack is
+ char* stack[100];
 //static const char** arr = (char**) malloc(100 * sizeof(char*));
 
 
@@ -57,7 +57,7 @@ void push(char *thing2push)
 
   //
 
-	fprintf(stdout, "%s", stack[top]); // prob need to mem allocate?
+	fprintf(stdout, "from inside push %s\n", stack[top]); // prob need to mem allocate?
   //
 }
 
@@ -101,6 +101,13 @@ char* pop()
   }
   else  
     top--; // top decrements
+  //char *topStack = (char*)malloc(50*sizeof(char)); 
+  //topStack = stack[top + 1];
+  //return topStack;
+  //return stack[top + 1]; // returns top of stack (before decrement) // this one is normal
+  //top++;
+  fprintf(stdout, "this is from inside pop: %s", stack[top + 1]);
   return stack[top + 1]; // returns top of stack (before decrement)
   //return 1; // this is dummy
 }
+
