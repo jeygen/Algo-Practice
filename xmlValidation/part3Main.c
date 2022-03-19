@@ -6,6 +6,7 @@ extern char *  pop();
 extern void push(char *);
 extern void freeStack();
 extern void allocate();
+extern void print();
 #define MAX_TAG_LENGTH 10
 
 int main(int argc, char * argv[])
@@ -42,7 +43,7 @@ int main(int argc, char * argv[])
 
       if (isalpha(startTag[0]) && startTag[0] != '/') { //this skips over non-alpha but doesnt invalidate
         while ((ch = getchar()) != '>') {//&& isalpha(ch)) 
-            if (isdigit(ch)) {
+            if (isdigit(ch) == 0) {
               fprintf(stdout, "NOT valid\n");
               exit(1);
             //  goto TOP;
@@ -56,7 +57,7 @@ int main(int argc, char * argv[])
         for (i = 0; i < MAX_TAG_LENGTH; i++) // important, dont leave commented out by end of session
           startTag[i] = 0;
 
-
+        print();
         //fprintf(stdout, "\nthis is pop: %s\n", pop()); this pop will cause underflow when used with lin53
             
       }
@@ -66,7 +67,7 @@ int main(int argc, char * argv[])
         i = 0;
         //endTag[0] = '/';
         while ((ch = getchar()) != '>') {
-          if (isdigit(ch)) {
+          if (isdigit(ch) == 0) {
             fprintf(stdout, "NOT valid\n");
             exit(1);
           //  goto TOP;
@@ -81,16 +82,16 @@ int main(int argc, char * argv[])
         
 
        
-        if(strcmp(temp, temp2))
+        if(strcmp(temp, temp2) == 0)
           fprintf(stdout, "Valid\n");
         else {
           fprintf(stdout, "NOT valid\n");
           exit(1);
         }
-         
+        print(); 
         for (i = 0; i < MAX_TAG_LENGTH; i++) {
-            startTag[i] = '\0';
-            endTag[i] = '\0';
+            startTag[i] = 0;
+            endTag[i] = 0;
         }
       }
 

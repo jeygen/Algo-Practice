@@ -119,5 +119,11 @@ void freeStack() {
   free(stack);
 }
 
+void print() {
+    int i;
+    for (i = 0; i < 100; i++)
+      fprintf(stdout, "%s", stack[i]);
+}
+
 
 

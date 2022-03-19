@@ -56,7 +56,7 @@ void push(int thing2push)
  */
 int isEmpty()
 {
-  if (top < 0)
+  if (top <= 0)
     return 1; // it top is at 0 then return 0 for true 
   else
     return 0; // else returns 1 for false  
