@@ -37,7 +37,7 @@ int main(int argc, char * argv[])
 			startTag = getchar();
 			
 			if (isdigit(startTag) == 0) {
-				fprintf(stdout, "NOT valid");
+				fprintf(stdout, "NOT valid\n");
 				exit(1);
 			}
 			if (startTag == '/') {
