@@ -32,7 +32,7 @@
 //   Uncomment the following 2 lines and use these static globals!
 static int top = 0; // indicates where the top of the stack is
 static char* stack[100];
-//static const char** arr = (char**) malloc(100 * sizeof(char*));
+
 
 
 /**
@@ -51,14 +51,9 @@ void push(char *thing2push)
   if (strlen(thing2push) > 100) {
 	fprintf(stderr, "String too long to push.");
   } 
-  //char temp[100];
-  //strcpy(temp, thing2push); // maybe can just use thing2push directly to stack
-  stack[top] = thing2push; // increases top by one and adds new value to stack
-  //top++;
-  //
-
-	fprintf(stdout, "from inside push %s\n", stack[top]); // prob need to mem allocate?
-  //
+  
+  stack[top] = (char*)malloc(sizeof(char)*(strlen(thing2push)+1));
+  strcpy(stack[top], thing2push); 
 }
 
 /**
@@ -68,7 +63,7 @@ void push(char *thing2push)
  */
 int isEmpty()
 {
-  if (top < 0)
+  if (top <= 0)
     return 1; // it top is at 0 then return 0 for true 
   else
     return 0; // else returns 1 for false  
@@ -81,47 +76,34 @@ int isEmpty()
  * is printed to stderr and the value -1 (minus one) is returned.
  */
 
-/*
-int pop()
-{
-  if (isEmpty() == 1) {
-    fprintf(stderr, "Stack underflow\n");
-  }
-  else  
-    top--; // top decrements
-  //return stack[top + 1][0]; // returns top of stack (before decrement)
-  return 1; // this is dummy
-}
-*/
-
 char* pop()
 {
-  if (isEmpty() == 1) {
+  
+  if (isEmpty() == 1) 
     fprintf(stderr, "Stack underflow\n");
-  }
-  else  
-    top--; // top decrements
-  //char *topStack = (char*)malloc(50*sizeof(char)); 
-  //topStack = stack[top + 1];
-  //return topStack;
-  //return stack[top + 1]; // returns top of stack (before decrement) // this one is normal
-  //top++;
-  fprintf(stdout, "this is from inside pop: %s\n", stack[top + 1]);
-  return stack[top + 1]; // returns top of stack (before decrement)
-  //return 1; // this is dummy
+  
+  top--; // top decrements
+
+  int tempTop = 1 + top;
+  return stack[tempTop]; // returns top of stack (before decrement)
+
 }
 
 void allocate() {
-  *stack = malloc(sizeof(char*)*10);
+  *stack = malloc(sizeof(char*)*100);
 }
 
 void freeStack() {
+  int i = 0;
+  for (i = 0; i < 100; i++) 
+    free(stack[i]);
   free(stack);
 }
 
-void print() {
+void print() { // for testing
     int i;
-    for (i = 0; i < 100; i++)
+    stack[10] = "apple";
+    for (i = 0; i < 100; i++) 
       fprintf(stdout, "%s", stack[i]);
 }
 
