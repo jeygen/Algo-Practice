@@ -1,4 +1,4 @@
-/**
+/*
  *  The functions in this module implement a Stack data structure
  *  of integers.  (Note that chars are also integers so this
  *  integer Stack can be used for chars as well.)
@@ -7,6 +7,9 @@
  *  Consequently, no more than 100 integers can be pushed onto
  *  the Stack at any given time.
  */
+
+#include <stdio.h>
+#include <stdlib.h>
 
 // Implementation hints:
 //   The 3 functions--push, pop and isEmpty--share information
@@ -26,8 +29,8 @@
 //
 //  RECOMMENDATION:
 //   Uncomment the following 2 lines and use these static globals!
-//static int top = 0;
-//static int stack[100];
+static int top = 0;
+static int stack[100];
 
 
 /**
@@ -39,7 +42,12 @@
 
 int pop()
 {
-  return 0;  //A dummy return statement
+  if (isEmpty() == 1) {
+	fprintf(stderr, "Stack Underflow\n");
+	exit(1);
+  }
+  top--;
+  return stack[top + 1];  //A dummy return statement
 }
 
 /**
@@ -50,6 +58,12 @@ int pop()
  */
 void push(int thing2push)
 {
+  top++;
+  if (top > 100) {
+	fprintf(stderr, "Stack Overflow");
+	exit(1);
+  }
+  stack[top] = thing2push;
 }
 
 /**
@@ -59,5 +73,8 @@ void push(int thing2push)
  */
 int isEmpty()
 {
-  return 0;  //A dummy return statement
+  if (top < 0)
+	return 1;
+  else
+	return 0;
 }
