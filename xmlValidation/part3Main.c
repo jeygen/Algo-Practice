@@ -17,7 +17,6 @@ int main(int argc, char * argv[])
 	char endTag[MAX_TAG_LENGTH]; // for char after '</'
 	int endTagcloser;
   int i = 0;
- 
 
   char *temp2 = (char*)malloc(50*sizeof(char));
   char *temp = (char*)malloc(50*sizeof(char));

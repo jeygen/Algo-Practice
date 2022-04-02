@@ -37,17 +37,28 @@ void swap(int *x, int *y) {
 } 
 
 void maxHeapify(int arr[], int arrSize, int index) {
-	int left = 2 * index;
-	int right = 2 * index + 1;
+	int left = 2 * index + 1;
+	int right = 2 * index + 2;
 	int largest = index;
 
-	if (left <= heapSize && arr[left] > arr[index])
+	
+	if (left < heapSize && arr[left] > arr[largest])
 		largest = left;
-	else 
-		largest = right;
+	//else 
+		//largest = right;
 
-	if (right <= heapSize && arr[right] > arr[largest])
+	if (right < arrSize && arr[right] > arr[largest])
 		largest = right;
+		
+    /*
+	if (left < arrSize && arr[left] > arr[largest])
+		largest = left;
+	
+	if (right < arrSize && arr[right] > arr[largest])
+		largest = right;
+		*/
+
+	
 
 	if (largest != index) {
 		swap(&arr[index], &arr[largest]);
@@ -58,7 +69,7 @@ void maxHeapify(int arr[], int arrSize, int index) {
 void buildMaxHeap(int arr[], int arrSize) {
 	heapSize = arrSize;
 	int i;
-	for (i = (arrSize/2); i >= 0; i--) 
+	for (i = ((arrSize/2)-1); i >= 0; i--) 
 		maxHeapify(arr, arrSize, i);
 }
 
@@ -68,12 +79,27 @@ void buildMaxHeap(int arr[], int arrSize) {
  */
 void addHeap(int thing2add)
 {
+	//heapSize++;
 	heap[heapSize] = thing2add;
 	heapSize++;
-	//buildMaxHeap(heap, heapSize + 1);
-	buildMaxHeap(heap, 100);
+
+	//int currentSize = sizeof(heap) / sizeof(heap[0]);
+	buildMaxHeap(heap, heapSize);
+
+	//int temp = heapSize;
+	//int parent = 
+	//while(
+	//buildMaxHeap(heap, heapSize + 1);:
+	//buildMaxHeap(heap, 100);
 	// For test
-	int i = 0;
-	for (i = 0; i < 100; i++)
+	//int i = 0;
+	//for (i = 0; i < heapSize; i++)
+	//	fprintf(stdout, "%d ", heap[i]);
+}
+
+// for testing purposes
+void printHeap() {
+	int i;
+	for (i = 0; i < heapSize; i++)
 		fprintf(stdout, "%d ", heap[i]);
 }

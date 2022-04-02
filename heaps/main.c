@@ -5,6 +5,7 @@ extern int pop();
 extern void push(int);
 extern int isEmpty();
 extern void addHeap(int);
+extern void printHeap();
 
 int main(int argc, char * argv[])
 {
@@ -15,6 +16,8 @@ int main(int argc, char * argv[])
     //if (isdigit(value)) 
     	addHeap(value);
   }
+
+  printHeap();
 
   exit(0);
 }
