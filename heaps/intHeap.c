@@ -10,15 +10,6 @@ static int heapSize = 0;
 int heap[100];
 static int recursionCount = 0;
 
-/**
- * heapDelete() removes the biggest integer in the heap and returns it.
- *
- */
-
-int heapDelete()
-{
-  return 0;  //A dummy return statement
-}
 
 
 /**
@@ -112,4 +103,21 @@ void printHeap() {
 		fprintf(stdout, "%d ", heap[i]);
 	fprintf(stdout, "\n");
 	fprintf(stdout, "For reference, this is the heap in xml, traversed in the preorder pattern: \n");
+}
+
+
+/**
+ * heapDelete() removes the biggest integer in the heap and returns it.
+ *
+ */
+
+int heapDelete()
+{
+	int i;
+	int deletedInt = heap[0];
+	heap[0] = heap[heapSize - 1];
+	heapSize--;
+	buildMaxHeap(heap, heapSize);
+
+  return deletedInt;  //A dummy return statement
 }

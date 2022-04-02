@@ -32,6 +32,18 @@
 static int top = 0;
 static int stack[100];
 
+/**
+ * isEmpty() returns a non-zero integer (not necessarily 1) if the
+ * stack is empty; otherwise, it returns 0 (zero).
+ *
+ */
+int isEmpty()
+{
+  if (top <= 0)
+	  return 1;
+  else
+	  return 0;
+}
 
 /**
  * pop() removes the top integer on the stack and returns it.
@@ -43,11 +55,12 @@ static int stack[100];
 int pop()
 {
   if (isEmpty() == 1) {
-	fprintf(stderr, "Stack Underflow\n");
-	exit(1);
+	  fprintf(stderr, "Stack Underflow\n");
+	  exit(1);
   }
   top--;
-  return stack[top + 1];  //A dummy return statement
+
+  return stack[top + 1];  
 }
 
 /**
@@ -60,21 +73,9 @@ void push(int thing2push)
 {
   top++;
   if (top > 100) {
-	fprintf(stderr, "Stack Overflow");
-	exit(1);
+    fprintf(stderr, "Stack Overflow");
+    exit(1);
   }
   stack[top] = thing2push;
 }
 
-/**
- * isEmpty() returns a non-zero integer (not necessarily 1) if the
- * stack is empty; otherwise, it returns 0 (zero).
- *
- */
-int isEmpty()
-{
-  if (top < 0)
-	return 1;
-  else
-	return 0;
-}
