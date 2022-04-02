@@ -76,44 +76,29 @@ void addHeap(int thing2add)
 
 // Print xml style
 void printHeapXML(int i) {
-	/*
-	int i = 0;
-	int j = 0;
-	int level = 1;
-	//char tab[4] = "    ";
-	fprintf(stdout, "\n");
-	fprintf(stdout, "<node id=\"%d\">\n", heap[0]);
-	if (heapSize > 0) {
-		for (i = 1; i < heapSize; i++) {
-			for (j = level; j > 0; j--) 
-				fprintf(stdout, "\t");
-			level++;
-			fprintf(stdout, "<node id=\"%d\">\n", heap[i]);
-		}
-	}
-	fprintf(stdout, "</node>\n");
-	*/
+
 	int j;
 	for (j = recursionCount++; j > 0; j--)
 		fprintf(stdout, "\t");
 	int size = heapSize;
-	//fprintf(stdout, "\n");
 	fprintf(stdout, "<node id=\"%d\">\n", heap[i]);
 	
-	
 	int left = 2 * i + 1;	
+
 	if(left < heapSize) {
 		printHeapXML(left);
 		recursionCount--;
 	}
 	
 	int right = 2 * i + 2;	
+
 	if(right < heapSize) {
 		printHeapXML(right);
 		recursionCount--;
 	}
-	
 
+	for (j = (recursionCount - 1); j > 0; j--)
+		fprintf(stdout, "\t");
 	fprintf(stdout,"</node>\n");
 }
 	
