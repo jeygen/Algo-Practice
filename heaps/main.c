@@ -6,6 +6,7 @@ extern void push(int);
 extern int isEmpty();
 extern void addHeap(int);
 extern void printHeap();
+extern void printHeapXML(int);
 
 int main(int argc, char * argv[])
 {
@@ -18,6 +19,7 @@ int main(int argc, char * argv[])
   }
 
   printHeap();
+  printHeapXML(0);
 
   exit(0);
 }
